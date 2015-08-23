@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<mx:Canvas xmlns:mx="http://www.adobe.com/2006/mxml" width="100%" height="100%">
+	<mx:Accordion width="100%" height="100%" paddingBottom="0" paddingLeft="0" paddingRight="0" paddingTop="0" left="0" top="0" borderStyle="none">
+		<mx:Script>
+			<![CDATA[
+			
+				public function addOne(event:MouseEvent):void{
+					var canvas:Canvas=new Canvas();
+					canvas.width=100;
+					canvas.height=100;
+					canvas.label="测试_"+Math.ceil(Math.random()*10);
+					this.parentApplication.positionedTabNavigator.addChild(canvas);
+				}
+
+			]]>
+		</mx:Script>
+		<mx:VBox label="管理首页" width="100%" height="100" horizontalAlign="center" verticalAlign="top" paddingTop="20">
+			<mx:PopUpButton label="基本信息" width="180" height="30"/>
+			<mx:PopUpButton label="基本配置" width="180"  height="30"/>
+			
+		</mx:VBox>
+		<mx:VBox label="科研信息" width="100%" height="250" horizontalAlign="center" verticalAlign="top" paddingTop="20">
+			<mx:PopUpButton label="论文管理" width="180" height="30" click="addOne(event)"/>
+			<mx:PopUpButton label="论著管理" width="180" height="30" click="addOne(event)"/>
+			<mx:PopUpButton label="科研项目" width="180" height="30"/>
+			<mx:PopUpButton label="科研成果" width="180" height="30"/>	
+			<mx:PopUpButton label="科研奖励" width="180" height="30"/>					
+		</mx:VBox>
+		<mx:VBox label="系统管理" width="100%" height="156" horizontalAlign="center" verticalAlign="top" paddingTop="20">
+			<mx:PopUpButton label="系统设置" width="180" height="30"/>
+			<mx:PopUpButton label="角色管理" width="180" height="30"/>
+			<mx:PopUpButton label="操作日志" width="180" height="30"/>			
+		</mx:VBox>
+	</mx:Accordion>	
+</mx:Canvas>

@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="utf-8"?>
+<mx:Module xmlns:mx="http://www.adobe.com/2006/mxml" width="100%" height="100%" layout="absolute"  backgroundColor="#D0CCCC" borderStyle="none" verticalScrollPolicy="off" horizontalScrollPolicy="off" creationComplete="initLoginPanelConfig()">
+
+	<mx:Script>
+		<![CDATA[	
+			import cn.freeliver.LoginController;
+			import mx.styles.StyleManager;
+			import mx.controls.Alert;
+			import mx.validators.Validator;
+			public var loginController:LoginController;
+			private var isOk:Boolean=false;
+			
+			private function initLoginPanelConfig():void{				
+				loginController=new LoginController(this.parentApplication,this);
+				loginController.configLoginPanel();			
+			}
+
+			private function loginAction(event:MouseEvent):void{
+				isOk=false;
+				checkUserName.validate(userName.text);
+				checkPassword.validate(password.text);
+				if(isOk==true){
+					loginController.login(userName.text,password.text);
+				}
+
+			}
+
+			private function registerNewUser():void{
+				isOk=false;
+				var _userName:String=userName.text;
+				var _password:String=password.text;
+				var _rePassword:String=rePassword.text;
+				var _email:String=email.text;
+				checkUserName.validate(userName.text);
+				checkPassword.validate(password.text);
+				checkrePassword.validate(rePassword.text);
+				checkEmail.validate(email.text);				
+				if(_password!=_rePassword){
+					rePassword.setFocus();
+				}else if(isOk==true){
+					loginController.register(_userName,_password,_email);
+				}
+			}
+			
+			private function checkValid():void{
+				isOk=true;
+			}
+			private function checkInValid():void{
+				isOk=false;
+			}		
+			
+		]]>
+	</mx:Script>
+	<mx:states>
+		<mx:State name="register">
+			<mx:AddChild relativeTo="{addtionlFormItem}" position="before">
+				<mx:FormItem label="确认密码：" fontWeight="normal" fontSize="12" width="293">
+					<mx:TextInput width="180" id="rePassword" displayAsPassword="true" />
+				</mx:FormItem>
+			</mx:AddChild>
+			<mx:AddChild relativeTo="{addtionlFormItem}" position="before">
+				<mx:FormItem label="E-mail：" fontWeight="normal" fontSize="12" width="292">
+					<mx:TextInput width="180" id="email"/>
+				</mx:FormItem>
+			</mx:AddChild>
+			<mx:SetProperty target="{loginButton}" name="label" value="注册新用户"  />
+			<mx:RemoveChild target="{registerButton}"/>
+			<mx:AddChild relativeTo="{OperateButtonBar}" position="lastChild">
+				<mx:Button label="返回登陆" click="this.currentState='';"/>
+			</mx:AddChild>
+			<mx:SetProperty target="{LoginOrRegisterPanel}" name="height" value="268"/>
+			<mx:SetProperty target="{LoginOrRegisterPanel}" name="title" value="注册新用户-科研管理系统 V0.1"/>
+			<mx:SetEventHandler target="{loginButton}" name="click" handler="registerNewUser();"/>
+		</mx:State>
+	</mx:states>
+
+	<mx:RegExpValidator source="{userName}"  id="checkUserName" valid="checkValid()" property="text" invalid="checkInValid()" expression="^\w\{5,15\}$"  flags="i" required="true" requiredFieldError="登陆账户不能为空" noMatchError="登陆账户必须为5至15位数字下划线或者字符"/>
+	<mx:RegExpValidator source="{password}" id="checkPassword" valid="checkValid()" property="text" invalid="checkInValid()"  expression="^\w\{5,15\}$" required="true" requiredFieldError="登陆密码不能为空"  flags="i" noMatchError="登陆密码必须为5至15位数字下划线或者字符"/>
+	<mx:RegExpValidator source="{rePassword}" id="checkrePassword" valid="checkValid()" property="text" invalid="checkInValid()"  expression="^{password.text}$" required="true" requiredFieldError="确认密码不能为空" noMatchError="两次输入的密码不一致，请重新输入！"/>	
+	<mx:EmailValidator source="{email}" valid="checkValid()" property="text" invalid="checkInValid()" id="checkEmail" required="true" requiredFieldError="注册的Email不能为空" missingAtSignError="所填Email地址缺少@标示符" invalidDomainError="域名地址错误"/>
+
+		<mx:Panel width="345" height="214" layout="absolute" title="科研管理系统 V0.1" fontWeight="bold" fontSize="15" horizontalCenter="0" id="LoginOrRegisterPanel" top="150">
+		<mx:Form width="100%" height="100%" x="0" y="0" id="loginForm">
+		<mx:FormItem width="100%" label="登陆账户：" id="userNameFormItem"  fontSize="12" fontWeight="normal">
+			<mx:TextInput id="userName" imeMode="CHINESE" name="userName"   fontSize="12" fontWeight="normal" width="180" />
+		</mx:FormItem>
+		<mx:FormItem width="100%" label="登陆密码：" fontSize="12" fontWeight="normal">
+			<mx:TextInput id="password" name="password"  fontSize="12" fontWeight="normal" width="180" displayAsPassword="true"/>
+		</mx:FormItem>			
+		<mx:FormItem width="100%"  fontSize="12" fontWeight="normal" height="40" paddingTop="10"  id="addtionlFormItem">		
+			<mx:HBox id="OperateButtonBar">		
+				<mx:Button label="用户登陆" click="loginAction(event)" id="loginButton"/><mx:Button label="新用户注册" id="registerButton" click="this.currentState='register';" enabled="false"/>
+			</mx:HBox>
+		</mx:FormItem>			
+	</mx:Form>
+	</mx:Panel>
+
+
+</mx:Module>

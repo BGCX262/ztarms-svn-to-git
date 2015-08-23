@@ -1,0 +1,102 @@
+<?xml version="1.0" encoding="utf-8"?>
+<mx:Module xmlns:mx="http://www.adobe.com/2006/mxml" layout="absolute" width="100%" height="100%">
+	<mx:Script>
+		<![CDATA[
+			import mx.controls.Button;
+			import mx.containers.ControlBar;
+			import mx.modules.ModuleLoader;
+			import mx.containers.Panel;
+			import mx.collections.ArrayCollection;
+			import mx.managers.PopUpManager;
+			[Bindable]
+			private var dataGrid:ArrayCollection;
+			private var d:Array;
+			private var registerRolePanel:Panel;
+			public function addItems():void{
+				d=[
+								[1,'asas111','asa','dsds','fdfd'],
+								[2,'asas222','asa','dsds','fdfd'],
+								[3,'asas3333','asa','dsds','fdfd'],
+								[4,'asas444','asa','dsds','fdfd'],
+								[5,'asas555','asa','dsds','fdfd'],
+								[5,'asas66','asa','dsds','fdfd'],
+								[6,'asas777','asa','dsds','fdfd'],
+								[35,'asa8888s','asa','dsds','fdfd'],
+								[11,'asas9999','asa','dsds','fdfd'],
+								[125,'asaiiiis','asa','dsds','fdfd'],
+								[345,'asakkhhs','asa','dsds','fdfd'],
+								[55,'asahjhjhs','asa','dsds','fdfd'],
+								[8,'asahjhjs','asa','dsds','fdfd'],
+								[7,'asahjhjs','asa','dsds','fdfd']
+							];
+				dataGrid=new ArrayCollection(d.slice(0,10));
+			}
+			
+			public function changeListNum(event:Event):void{
+				var current:HSlider=event.target as HSlider
+				dataGrid=new ArrayCollection(d.slice(0,current.value));
+				DataView.height=current.value*DataView.rowHeight+DataView.headerHeight+20;
+				
+			}
+			private function closeAddNewRolePanel(event:MouseEvent):void{
+				PopUpManager.removePopUp(registerRolePanel);
+			}
+			private function addNewRole(event:MouseEvent):void{
+				registerRolePanel=new Panel();
+				var childrenModule:ModuleLoader=new ModuleLoader();
+				var controlBar:ControlBar=new ControlBar();
+				var closeButton:Button=new Button();
+				closeButton.label="关闭窗口";
+				closeButton.addEventListener(MouseEvent.CLICK,closeAddNewRolePanel);
+				controlBar.addChild(closeButton);
+				childrenModule.width=480;
+				childrenModule.height=300;
+				registerRolePanel.width=500;
+				registerRolePanel.height=320;
+				registerRolePanel.title="添加新角色";
+				registerRolePanel.alpha=0.95;
+				registerRolePanel.verticalScrollPolicy="off";
+				registerRolePanel.horizontalScrollPolicy="off";
+				registerRolePanel.addChild(childrenModule);
+				registerRolePanel.addChild(controlBar);
+				registerRolePanel.x=this.parentApplication.width/3;
+				registerRolePanel.y=this.parentApplication.height/5;
+				PopUpManager.addPopUp(registerRolePanel,this.parent,true);
+				childrenModule.loadModule("modules/addRoleModule.swf");
+			}			
+
+			
+		]]>
+	</mx:Script>
+
+		<mx:HBox x="0" y="0" width="100%" height="50" verticalAlign="middle" paddingLeft="10" paddingRight="10">
+		<mx:Label text="操作栏：" fontWeight="bold" fontSize="14"/>
+		<mx:Button label="刷新" click="addItems();"/>
+		<mx:Button label="删除角色"/>
+		<mx:Button label="添加新角色" click="addNewRole(event)"/>
+		<mx:Button label="清空数据"/>
+		<mx:Label text="列表显示："/>
+		<mx:HSlider labels="[5行,10行]"  change="changeListNum(event);" id="listNumSlider" minimum="5" maximum="10"  value="10" snapInterval="1"/>
+		</mx:HBox>
+	<mx:VBox x="0" y="58" width="100%" height="100%" paddingLeft="5" paddingRight="5">
+		<mx:AdvancedDataGrid id="DataView"   allowMultipleSelection="true" dataProvider="{dataGrid}" designViewDataType="tree" width="100%" height="100%">
+			<mx:columns>
+				<mx:AdvancedDataGridColumn headerText="ID" dataField="0" width="50" />	
+				<mx:AdvancedDataGridColumn headerText="显示名称" dataField="1" width="150"/>						
+				<mx:AdvancedDataGridColumn headerText="角色名称" dataField="1" width="150"/>
+				<mx:AdvancedDataGridColumn headerText="用户组" dataField="2" width="150"/>
+				<mx:AdvancedDataGridColumn headerText="创建时间" dataField="3" width="100"/>
+				<mx:AdvancedDataGridColumn headerText="是否锁定" dataField="4" width="100"/>						
+				</mx:columns>
+		</mx:AdvancedDataGrid>
+		<mx:HBox width="100%" height="33" paddingLeft="10" paddingRight="10">
+			<mx:Label text="操作栏：" fontWeight="bold" fontSize="14"/>
+			<mx:Button label="上一页"/>
+			<mx:Button label="下一页"/>
+			<mx:Button label="首页"/>
+			<mx:Button label="末页"/>
+			<mx:NumericStepper value="1" minimum="1" maximum="15" stepSize="1"/>
+			<mx:Label text="页"/>
+		</mx:HBox>
+	</mx:VBox>	
+</mx:Module>

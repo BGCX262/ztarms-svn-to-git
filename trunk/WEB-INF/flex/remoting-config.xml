@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<service id="remoting-service" 
+    class="flex.messaging.services.RemotingService">
+
+    <adapters>
+        <adapter-definition id="java-object" class="flex.messaging.services.remoting.adapters.JavaAdapter" default="true"/>
+    </adapters>
+
+    <default-channels>
+        <channel ref="my-amf"/>
+    </default-channels>
+    <destination id="cn.freeliver.loginService"> 
+        <properties> 
+        <source>cn.freeliver.LoginService</source> 
+        </properties> 
+    </destination>
+    <destination id="cn.freeliver.config.ConfigService">
+    	<properties>
+    	<source>cn.freeliver.config.ConfigService</source>
+    	</properties> 
+    </destination>
+    <destination id="cn.freeliver.UserService">
+    	<properties>
+    	<source>cn.freeliver.UserService</source>
+    	</properties> 
+    </destination>
+     <destination id="cn.freeliver.ResearchService">
+    	<properties>
+    	<source>cn.freeliver.ResearchService</source>
+    	</properties> 
+    </destination>   
+</service>

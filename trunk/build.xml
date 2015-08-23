@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<project name="rms" basedir="." default="compile">
+<description>Research Manager System</description>
+<property name="src.dir" value="src"/>
+<property name="class.dir" value="WEB-INF/classes"/>
+    <target name="compile" depends="build"> 
+          <javac srcdir="${src.dir}" destdir="${class.dir}" includeantruntime="false"  encoding="utf-8" /> 
+    </target> 
+    <target name="build">
+        <mkdir dir="WEB-INF/classes"/>
+        <mkdir dir="WEB-INF/lib"/>
+     </target>
+
+</project>

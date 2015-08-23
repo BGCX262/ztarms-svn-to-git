@@ -1,0 +1,151 @@
+<?xml version="1.0" encoding="utf-8"?>
+<mx:Module xmlns:mx="http://www.adobe.com/2006/mxml" layout="absolute" width="100%" height="100%" creationComplete="init()">
+	<mx:Script>
+		<![CDATA[
+			import mx.controls.ComboBox;
+			import mx.controls.NumericStepper;
+			import mx.controls.Button;
+			import mx.containers.ControlBar;
+			import mx.modules.ModuleLoader;
+			import mx.containers.Panel;
+			import mx.collections.ArrayCollection;
+			import mx.managers.PopUpManager;
+			import mx.controls.Alert;
+			import mx.events.ListEvent;
+			import cn.freeliver.UserController;
+			[Bindable]
+			private var dataGrid:ArrayCollection;
+			private var d:Array;
+			private var listCount:int=10;
+			private var totalCount:int=0;
+			[Bindable]
+			private var totalPage:int=1;
+			[Bindable]
+			private var currentPage:int=1;
+			private var registerUserPanel:Panel;
+
+			private var userController:UserController=null;
+			private function init():void{
+				userController=new UserController(this.parentApplication,this);
+				userController.firstPage();
+				//监听修改用户类型事件
+				this.addEventListener('changeType',this.changeType,true);
+				this.addEventListener('changLock',this.changeLock,true);
+			}
+			public function setItems(d:ArrayCollection,listCount:int,totalCount:int,totalPage:int,currentPage:int):void{
+				this.dataGrid=d
+				this.d=d.toArray();
+				this.listCount=listCount;
+				this.totalCount=totalCount;
+				this.totalPage=totalPage;
+				this.currentPage=currentPage;
+			}
+			
+			public function changeListNum(event:Event):void{
+				var current:HSlider=event.target as HSlider
+				dataGrid=new ArrayCollection(d.slice(0,current.value));
+				DataView.height=current.value*DataView.rowHeight+DataView.headerHeight+20;
+				
+			}
+			private function closeAddNewUserPanel(event:MouseEvent):void{
+				PopUpManager.removePopUp(registerUserPanel);
+			}
+			private function addNewUser(event:MouseEvent):void{
+				registerUserPanel=new Panel();
+				var childrenModule:ModuleLoader=new ModuleLoader();
+				var controlBar:ControlBar=new ControlBar();
+				var closeButton:Button=new Button();
+				closeButton.label="关闭窗口";
+				closeButton.addEventListener(MouseEvent.CLICK,closeAddNewUserPanel);
+				controlBar.addChild(closeButton);
+				childrenModule.width=350;
+				childrenModule.height=250;
+				registerUserPanel.width=500;
+				registerUserPanel.height=280;
+				registerUserPanel.title="添加新用户";
+				registerUserPanel.alpha=0.95;
+				registerUserPanel.verticalScrollPolicy="off";
+				registerUserPanel.horizontalScrollPolicy="off";
+				registerUserPanel.addChild(childrenModule);
+				registerUserPanel.addChild(controlBar);
+				registerUserPanel.x=this.parentApplication.width/3;
+				registerUserPanel.y=this.parentApplication.height/5;
+				PopUpManager.addPopUp(registerUserPanel,this.parent,true);
+				childrenModule.loadModule("modules/addUser.swf");
+			}
+			
+			private function changeThePageByStepper(event:Event):void{
+				var stepper:NumericStepper=event.target as NumericStepper;
+				var val:int=stepper.value;
+				userController.getUserListByPage(val);
+			}
+			private function changeType(event:Event):void{
+				var cp:ComboBox= event.target as ComboBox;
+				var type:int=cp.selectedIndex==0?2:1;
+				var id:int=1;
+				userController.changeType(id,type);
+			}
+			private function changeLock(event:Event):void{
+				var cp:ComboBox= event.target as ComboBox;
+				Alert.show(cp.selectedIndex.toString());
+			}			
+			
+		]]>
+	</mx:Script>
+		<mx:HBox x="0" y="0" width="100%" height="50" verticalAlign="middle" paddingLeft="10" paddingRight="10">
+		<mx:Label text="操作栏：" fontWeight="bold" fontSize="14"/>
+		<mx:Button label="刷新"  click="userController.refresh();"/>
+		<mx:Button label="删除用户"/>
+		<mx:Button label="添加新用户" click="addNewUser(event);"/>
+		<mx:Label text="列表显示："/>
+		<mx:HSlider labels="[5行,10行]"  change="changeListNum(event);" id="listNumSlider" minimum="5" maximum="10"  value="10" snapInterval="1"/>
+		</mx:HBox>
+	<mx:VBox x="0" y="58" width="100%" height="100%" paddingLeft="5" paddingRight="5">
+		<mx:DataGrid id="DataView"   allowMultipleSelection="true" dataProvider="{dataGrid}"  editable="true" width="100%" height="282">
+			<mx:columns>
+				<mx:DataGridColumn headerText="ID" dataField="0" width="50" />			
+				<mx:DataGridColumn headerText="登陆账户" dataField="1" width="150"  editable="false"/>
+				<mx:DataGridColumn headerText="登陆密码" dataField="2" width="150" editable="true"/>
+				<mx:DataGridColumn headerText="用户类别" dataField="3" width="100" editable="true" >
+				<mx:itemEditor>
+					<mx:Component>
+						<mx:ComboBox selectedIndex="0" change="dispatchEvent(new Event('changeType'))" >
+							<mx:dataProvider>
+							<mx:String>一般用户</mx:String>
+							<mx:String>管理员</mx:String>
+							</mx:dataProvider>
+						</mx:ComboBox>
+					</mx:Component>
+					
+				</mx:itemEditor>
+				</mx:DataGridColumn>
+				<mx:DataGridColumn headerText="注册时间" dataField="4" width="120" editable="false"/>
+				<mx:DataGridColumn headerText="注册IP" dataField="5" width="150" editable="false"/>
+				<mx:DataGridColumn headerText="详细信息" dataField="6" width="150"/>				
+				<mx:DataGridColumn headerText="是否锁定" dataField="7" width="100" editable="true">
+				<mx:itemEditor>
+					<mx:Component>
+						<mx:ComboBox selectedIndex="0" change="dispatchEvent(new Event('changeLock'))" >
+							<mx:dataProvider>
+							<mx:String>锁定</mx:String>
+							<mx:String>解锁</mx:String>
+							</mx:dataProvider>
+						</mx:ComboBox>
+					</mx:Component>
+				
+				</mx:itemEditor>					
+				</mx:DataGridColumn>						
+			</mx:columns>
+		</mx:DataGrid>
+		<mx:HBox width="100%" height="33" paddingLeft="10" paddingRight="10">
+			<mx:Label text="操作栏：" fontWeight="bold" fontSize="14"/>
+			<mx:Button label="上一页" click="userController.prevPage();"/>
+			<mx:Button label="下一页" click="userController.nextPage();"/>
+			<mx:Button label="首页" click="userController.firstPage();"/>
+			<mx:Button label="末页" click="userController.lastPage();"/>
+			<mx:NumericStepper value="{currentPage}" change="changeThePageByStepper(event)"  minimum="0" maximum="{totalPage}" stepSize="1"/>
+			<mx:Label text="页"/>
+		</mx:HBox>
+	</mx:VBox>
+
+</mx:Module>

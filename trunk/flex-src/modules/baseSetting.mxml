@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<mx:Module xmlns:mx="http://www.adobe.com/2006/mxml" layout="absolute" width="100%"  horizontalScrollPolicy="off" height="100%" verticalScrollPolicy="off">
+	<mx:Form x="10" y="10" width="100%" height="100%" paddingLeft="40">
+		<mx:FormHeading label="基本设置" width="599" textAlign="left" paddingLeft="40"/>
+		<mx:FormItem label="系统名称：" >
+			<mx:TextInput width="368" />
+		</mx:FormItem>
+		<mx:FormItem label="系统说明：" >
+			<mx:TextArea width="368"  height="67"/>
+		</mx:FormItem>		
+		<mx:FormItem label="版权申明：" >
+			<mx:TextInput width="370" />
+		</mx:FormItem>
+		<mx:FormItem label="运行系统："  width="448">
+			<mx:RadioButtonGroup id="runSystem"/>
+			<mx:RadioButton label="开启" groupName="runSystem" selected="true"/>
+			<mx:RadioButton label="关闭" groupName="runSystem"/>
+		</mx:FormItem>	
+		<mx:FormItem label="关闭信息：" >
+			<mx:TextArea width="370"  height="60"/>
+		</mx:FormItem>
+		<mx:FormItem label="注册功能：" >
+			<mx:RadioButtonGroup id="isResister"/>
+			<mx:RadioButton label="开启" groupName="isResister" selected="true"/>
+			<mx:RadioButton label="关闭" groupName="isResister"/>
+		</mx:FormItem>
+		<mx:FormItem   width="449">
+			<mx:HBox>				
+			<mx:Button label="确定更改" /> <mx:Button label="恢复默认配置"/>
+			</mx:HBox>
+		</mx:FormItem>												
+	</mx:Form>
+</mx:Module>

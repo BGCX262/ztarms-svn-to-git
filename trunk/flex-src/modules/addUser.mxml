@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+<mx:Module xmlns:mx="http://www.adobe.com/2006/mxml" layout="absolute" width="100%" height="100%"  horizontalAlign="center" horizontalScrollPolicy="off">
+	<mx:Script>
+		<![CDATA[
+			import cn.freeliver.UserController;
+			import mx.controls.Alert;
+			private var userController:UserController=null;
+			public function init():void{
+				userController=new UserController(this);
+			}
+			private function registerAction(){
+				userController.register(this.userName.text,this.password.text,this.email.text,this.lockUserGroup.selectedValue);				
+			}
+		]]>
+	</mx:Script>
+	<mx:HBox x="0" y="0" width="100%" height="100%">
+		<mx:Form width="100%" height="100%"  paddingLeft="50">
+			<mx:Label id="showInfo"/>
+			<mx:FormItem label="登陆账户：" >
+				<mx:HBox><mx:TextInput id="userName" width="203"/></mx:HBox>
+			</mx:FormItem>
+			<mx:FormItem label="登陆密码：" >
+				<mx:HBox><mx:TextInput id="password" width="203"/></mx:HBox>
+			</mx:FormItem>
+			<mx:FormItem label="确认密码：" id="rePassword" width="283">
+				<mx:TextInput width="204"/>
+			</mx:FormItem>
+			<mx:FormItem label="E-mail：" id="email">
+				<mx:TextInput width="204"/>
+			</mx:FormItem>
+			<mx:FormItem label="是否锁定：">
+			<mx:RadioButtonGroup id="lockUserGroup"/>
+			<mx:HBox width="100%">
+			<mx:RadioButton label="锁定" groupName="lockUserGroup"/>
+			<mx:RadioButton label="开启" groupName="lockUserGroup"/>
+			</mx:HBox>
+			</mx:FormItem>
+			<mx:FormItem  width="369">
+				
+				<mx:HBox>
+					<mx:Button label="添加用户" click="registerAction();" >		</mx:Button><mx:Button label="清空"/>				</mx:HBox>
+					
+			</mx:FormItem>			
+		</mx:Form>
+	</mx:HBox>
+	
+</mx:Module>

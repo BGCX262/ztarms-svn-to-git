@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<mx:Module xmlns:mx="http://www.adobe.com/2006/mxml" layout="absolute" width="100%" height="100%"  horizontalAlign="center" horizontalScrollPolicy="off">
+	<mx:HBox x="0" y="0" width="100%" height="100%">
+		<mx:Form width="100%" height="100%"  paddingLeft="50">
+			<mx:FormHeading label="添加科研奖励"  paddingLeft="50" fontSize="15" width="447" textAlign="left"/>
+			<mx:FormItem label="获奖人员：" >
+				<mx:HBox><mx:TextInput width="300"/><mx:Label text="*添加获奖人员"/></mx:HBox>
+			</mx:FormItem>
+			<mx:FormItem label="项目名称：" >
+				<mx:HBox><mx:TextInput width="300"/><mx:Label text="*添加项目名称"/></mx:HBox>
+			</mx:FormItem>
+			<mx:FormItem label="奖励名称：">
+				<mx:HBox><mx:TextInput width="300"/><mx:Label text="*添加奖励名称"/></mx:HBox>
+			</mx:FormItem>
+			<mx:FormItem label="授予单位：">
+				<mx:HBox><mx:TextInput width="300"/><mx:Label text="*添加授予单位"/></mx:HBox>
+			</mx:FormItem>
+			<mx:FormItem label="授予时间：">
+				<mx:HBox><mx:TextInput width="300"/><mx:Label text="*添加授予时间"/></mx:HBox>
+			</mx:FormItem>
+			<mx:FormItem label="备注：">
+				<mx:HBox><mx:TextArea width="300" height="80"/><mx:Label text="*添加备注"/></mx:HBox>
+			</mx:FormItem>
+			<mx:FormItem  width="369">
+				<mx:HBox>
+					<mx:Button label="添加信息">		</mx:Button><mx:Button label="重新添加">		</mx:Button>
+				</mx:HBox>
+			</mx:FormItem>			
+		</mx:Form>
+	</mx:HBox>
+	
+</mx:Module>

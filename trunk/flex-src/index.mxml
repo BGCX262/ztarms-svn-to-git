@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="utf-8"?>
+<mx:Application  xmlns:mx="http://www.adobe.com/2006/mxml"   layout="absolute"  creationComplete="init()" xmlns:m="modules.*" xmlns:c="components.*"  xmlns:container="cn.freeliver.containers.*" xmlns:control="cn.freeliver.controls.*" currentState="main">
+	<mx:Style source="scripts/css/global.css"/>
+	<mx:Script>
+		<![CDATA[
+			import mx.events.MenuEvent;
+			import mx.collections.ArrayCollection;
+			import mx.styles.StyleManager;
+			import mx.controls.Alert;
+			import cn.freeliver.IndexController;
+			
+			//引入自定义的右键菜单
+			import cn.freeliver.config.RightMenuContext;
+			import cn.freeliver.AccessList;
+			
+			//去除flex的表格等的水印
+			[Frame(extraClass="mx.charts.chartClasses.ChartsLicenseHandler")]
+			
+			//访问控制列表
+			public  var accessList:AccessList=null;
+			//用户角色
+			public var userRole:String='';
+			//首页控制器 			
+			private var indexController:IndexController;
+			public function init():void{
+				accessList=new AccessList();
+				var contextMenu:RightMenuContext=new RightMenuContext(this);
+				indexController=new IndexController(this);
+				StyleManager.getStyleDeclaration("ToolTip").setStyle("fontSize",12);
+			}
+			
+			private function popUpMenu(event:Event):void{
+				Alert.show(event.toString());
+			}
+			private function getItemClick(event:MenuEvent):void{
+				Alert.show(event.index.toString());
+				switch(event.index){
+					case 1:
+					break;
+				}
+			}
+			private function logoutAction(event:MouseEvent):void{
+				this.indexController.logout();
+			}
+
+		]]>
+	</mx:Script>
+
+	<mx:states>
+		<mx:State name="main">
+			<mx:RemoveChild target="{loginModule}"/>
+			<mx:AddChild position="lastChild">
+				<mx:Label x="427" y="311" text="OK"/>
+			</mx:AddChild>
+			<mx:AddChild position="lastChild">
+				<mx:ApplicationControlBar paddingBottom="0" paddingLeft="0" paddingRight="0" paddingTop="0" x="10" y="0" width="100%" dock="true" height="48" fillAlphas="[1.0, 1.0]" fillColors="[#A9A9A9, #A9A9A9]">
+				<mx:Canvas width="100%" height="100%"  backgroundColor="#A9A9A9" x="159" y="5">
+					<mx:Button label="注销" click="logoutAction(event)" width="84" left="600" top="12"/>
+				<mx:Label  id="userInformation" width="414" left="110" top="16"/>
+				<mx:PopUpMenuButton label="快捷菜单" id="quickMenu" click="Alert.show(this.accessList.getAccessList().toString());"  itemClick="getItemClick(event)"  left="10" top="12"/>
+				<mx:Label text="Research Manager System v0.1" right="10" bottom="10" width="217" fontWeight="bold"/>
+				</mx:Canvas>
+
+				</mx:ApplicationControlBar>
+			</mx:AddChild>
+			<mx:AddChild position="lastChild">
+				<mx:HBox x="0" y="10" width="100%" height="100%" backgroundColor="#D0CCCC">
+					<container:PositionedTabNavigator id="positionedTabNavigator"   width="100%" height="100%" tabPosition="leftTop"  tabHeight="40" tabWidth="200" creationPolicy="all">
+					<mx:Canvas label="管理首页" id="firstPage" width="100%" icon="@Embed(source='scripts/images/homePage_small.png')">
+						<m:homePage  id="homePageModule" width="100%" height="100%"/>
+					</mx:Canvas>
+					<mx:Canvas label="科研信息" id="researchPage" width="100%" icon="@Embed(source='scripts/images/research_small.png')">
+						<m:researchManager id="researchModule" width="100%" height="100%"/>					</mx:Canvas>				
+
+					<mx:Canvas label="用户中心" id="usersPage" icon="@Embed(source='scripts/images/users_small.png')">
+						<m:userManager id="userManagerModule" width="100%" height="100%" />
+					</mx:Canvas>
+					<mx:Canvas label="系统管理" id="SysAdminPage" icon="@Embed(source='scripts/images/advancedSetting_small.png')">
+						<m:manageSystem id="manageSystemModule" width="100%" height="100%" />
+					</mx:Canvas>					
+					</container:PositionedTabNavigator>
+				
+				</mx:HBox>
+			</mx:AddChild>
+		</mx:State>
+	</mx:states>
+
+	<m:login horizontalCenter="0" borderStyle="none" backgroundColor="#D0CCCC" verticalCenter="-84" id="loginModule">
+	</m:login>
+	<mx:HBox width="274" height="32" right="40" bottom="10" verticalScrollPolicy="off" horizontalScrollPolicy="off" backgroundColor="#D0CCCC">
+	</mx:HBox>
+	<mx:Label text="This System Designed By Freeliver&lt;freeliver204@gmail.com&gt; 2010" width="426" height="27" id="bottomRightLogoLabel" bottom="15" right="40"/>
+</mx:Application>

@@ -1,0 +1,86 @@
+/* CSS file */
+
+PopUpMenuButton
+{
+	fillAlphas: 1.0, 1.0;
+	fillColors: #E0DEDE, #E0DEDE;
+	themeColor: #D1D6D9;
+}
+.errorTip{
+	fontSize:12;
+	fontWeight: bold;
+	backgroundColor: #AE1212;
+	color: #FFFFFF;
+}
+
+global
+{
+	fontSize: 12;
+	color: #050505;
+	backgroundColor: #FFFFFF;
+}
+ToolTip
+{
+	fontSize: 12;
+	fontFamily: Arial;
+}
+Application
+{
+	backgroundGradientAlphas: 1.0, 1.0;
+	backgroundGradientColors: #D0CCCC, #D0CCCC;
+	paddingLeft: 12;
+	paddingTop: 12;
+	paddingRight: 12;
+	paddingBottom: 12;
+}
+
+Canvas
+{
+	backgroundColor: #FAF9F9;
+}
+
+
+TabBar
+{
+	firstTabStyleName: tabBarFirstTab;
+	selectedTabTextStyleName: tabBarSelectedTabText;
+	tabStyleName: tabBarTab;
+	lastTabStyleName: tabBarLastTab;
+	horizontalAlign: center;
+	height:50;
+}
+
+Button
+{
+	themeColor: #9EBED3;
+	cornerRadius: 3;
+}
+.accordionHeader
+{
+	fontSize: 12;
+}
+.tabBarFirstTab
+{
+	fillAlphas: 1.0, 1.0;
+	fillColors: #A8A5A5, #A8A5A5;
+	cornerRadius: 5;
+}
+.tabBarSelectedTabText
+{
+	fontSize: 12;
+	fontFamily: Arial;
+}
+.tabBarTab
+{
+	cornerRadius: 5;
+	fillAlphas: 1.0, 1.0;
+	fillColors: #A8A5A5, #A8A5A5;
+}
+.tabBarLastTab
+{
+	cornerRadius: 5;
+	fillAlphas: 1.0, 1.0;
+	fillColors: #A8A5A5, #A8A5A5;
+}
+
+

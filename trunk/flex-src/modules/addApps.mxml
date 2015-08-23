@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="utf-8"?>
+<mx:Module xmlns:mx="http://www.adobe.com/2006/mxml" layout="absolute" width="100%" height="100%"  horizontalAlign="center" horizontalScrollPolicy="off">
+	<mx:HBox x="0" y="0" width="100%" height="100%">
+		<mx:Form width="100%" height="100%"  paddingLeft="50" horizontalScrollPolicy="off">
+			<mx:FormHeading label="添加科研项目"  paddingLeft="50" fontSize="15" width="447" textAlign="left"/>
+			<mx:FormItem label="项目编号：" >
+				<mx:HBox><mx:TextInput width="300"/><mx:Label text="*添加项目编号"/></mx:HBox>
+			</mx:FormItem>
+			<mx:FormItem label="项目名称：" >
+				<mx:HBox><mx:TextInput width="300"/><mx:Label text="*添加项目名称"/></mx:HBox>
+			</mx:FormItem>
+			<mx:FormItem label="项目来源：">
+				<mx:HBox><mx:TextInput width="300"/><mx:Label text="*添加项目来源"/></mx:HBox>
+			</mx:FormItem>
+			<mx:FormItem label="项目类别：">
+				<mx:HBox><mx:TextInput width="300"/><mx:Label text="*添加项目类别"/></mx:HBox>
+			</mx:FormItem>
+			<mx:FormItem label="完成单位：">
+				<mx:HBox><mx:TextInput width="300"/><mx:Label text="*添加完成单位"/></mx:HBox>
+			</mx:FormItem>
+
+			<mx:FormItem label="负责人：" horizontalAlign="left">
+				<mx:HBox><mx:TextInput width="300" /><mx:Label text="*添加负责人"/></mx:HBox>
+			</mx:FormItem>
+			<mx:FormItem label="课题组成员：">
+				<mx:HBox><mx:TextInput width="300"/><mx:Label text="*添加课题组成员"/></mx:HBox>
+			</mx:FormItem>
+			<mx:FormItem label="立项时间：">
+				<mx:HBox><mx:TextInput width="300"/><mx:Label text="*添加立项时间"/></mx:HBox>
+			</mx:FormItem>
+			<mx:FormItem label="拟定期限：">
+				<mx:HBox><mx:TextInput width="300"/><mx:Label text="*添加拟定期限"/></mx:HBox>
+			</mx:FormItem>
+			<mx:FormItem label="经费额度：">
+				<mx:HBox><mx:TextInput width="300"/><mx:Label text="*添加经费额度"/></mx:HBox>
+			</mx:FormItem>
+			<mx:FormItem label="是否鉴定：">
+				<mx:HBox>
+					<mx:RadioButton groupName="checkGroup" label="是" selected="true"/>
+					<mx:RadioButton groupName="checkGroup" label="否"/>
+					<mx:RadioButtonGroup id="checkGroup"/>
+					<mx:Label text="是否鉴定"/>
+				</mx:HBox>
+			</mx:FormItem>
+			<mx:FormItem label="鉴定时间：">
+				<mx:HBox><mx:TextInput width="300"/><mx:Label text="*添加鉴定时间"/></mx:HBox>
+			</mx:FormItem>
+			<mx:FormItem label="备注：">
+				<mx:HBox><mx:TextArea width="300" height="80"/><mx:Label text="*添加备注"/></mx:HBox>
+			</mx:FormItem>
+			<mx:FormItem  width="369">
+				<mx:HBox>
+					<mx:Button label="添加">		</mx:Button><mx:Button label="重新添加">		</mx:Button>
+				</mx:HBox>
+			</mx:FormItem>			
+		</mx:Form>
+	</mx:HBox>
+	
+</mx:Module>

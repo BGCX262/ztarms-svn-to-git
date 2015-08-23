@@ -1,0 +1,139 @@
+<?xml version="1.0" encoding="utf-8"?>
+<mx:Canvas xmlns:mx="http://www.adobe.com/2006/mxml" width="100%"  creationComplete="init()" height="100%" backgroundAlpha="0.0" >
+	<mx:Script>
+		<![CDATA[
+			import mx.controls.dataGridClasses.DataGridColumn;
+			import mx.controls.ComboBox;
+			import mx.collections.ArrayCollection;
+			import cn.freeliver.ResearchController;
+			import mx.controls.DataGrid;
+			import mx.controls.Alert;
+			[Bindable]
+			private var dataAC:ArrayCollection=null;
+			[Bindable]
+			private var crtPage:int=1;
+			[Bindable]
+			private var totalPage:int=0;
+			private var crtOperator:String='thesis';
+			private var researchController:ResearchController=null;
+			public function init():void{
+				researchController=new ResearchController(this.parentApplication,this);
+				researchController.firstPage();
+			}
+			public function setView(datagrid:ArrayCollection,crtPage:int,totalPage:int):void{
+				this.dataAC=datagrid;
+				this.crtPage=crtPage;
+				this.totalPage=totalPage;
+			}
+			
+			public function createDataGrid():void{
+				var datagrid:DataGrid=new DataGrid();
+				datagrid.height=282;
+				
+				datagrid.visible=true;
+				datagrid.dataProvider=this.dataAC;
+				datagrid.allowDragSelection=true;
+				datagrid.allowMultipleSelection=true;
+				addDataGridInHere.addChild(datagrid);
+				
+				
+			}
+			public function getCrtOperator():String{
+				return this.crtOperator;
+			}
+			
+			private function changeViewList(event:Event):void{
+				var c:ComboBox=ComboBox(event.target);
+				switch(c.selectedIndex){
+					case 0:
+					this.crtOperator='thesis';
+					this.doChangePage();
+					break;
+					case 1:
+					this.crtOperator='books';
+					this.doChangePage();
+					break;
+					case 2:
+					this.crtOperator='apps';
+					this.doChangePage();
+					break;
+					case 3:
+					this.crtOperator='results';
+					this.doChangePage();
+					break;
+					case 4:
+					this.crtOperator='rewards';
+					this.doChangePage();
+					break;
+					case 5:
+					this.crtOperator='declares';
+					this.doChangePage();
+					break;
+					default:
+					
+					this.crtOperator='thesis';
+					this.doChangePage();
+					
+				}
+			}
+			
+			public function doChangePage():void{
+				addDataGridInHere.removeAllChildren();
+				this.firstPage();
+			}
+			
+			public function firstPage():void{
+				researchController.setOperator(this.crtOperator);
+				researchController.firstPage();				
+			}
+			public function lastPage():void{
+				researchController.setOperator(this.crtOperator);
+				researchController.lastPage();
+			}
+			public function nextPage():void{
+				researchController.setOperator(this.crtOperator);
+				researchController.nextPage();
+			}
+			public function prevPage():void{
+				researchController.setOperator(this.crtOperator);
+				researchController.prevPage();
+			}
+			
+
+			
+		]]>
+	</mx:Script>
+	<mx:XMLList xmlns="" id="operateItems">
+	<node label="论文信息" value="1"/>
+	<node label="论著信息" value="2"/>
+	<node label="科研项目" value="3"/>
+	<node label="科研成果" value="4"/>
+	<node label="科研奖励" value="5"/>
+	<node label="申报项目" value="6"/>
+	</mx:XMLList>
+		<mx:HBox x="0" y="0" width="100%" height="50" verticalAlign="middle" paddingLeft="10" paddingRight="10">
+		<mx:Label text="操作栏：" fontWeight="bold" fontSize="14"/>
+		<mx:ComboBox dataProvider="{operateItems}" labelField="@label"  change="changeViewList(event)"  selectedIndex="0" width="116" height="28"></mx:ComboBox>
+		<mx:Button label="刷新" click="researchController.getPageList(this.crtPage);" />
+		<mx:Button label="删除项目"/>
+		<mx:Button label="清空数据"/>
+		<mx:Button label="导出Excel"/>
+		<mx:Button label="打印表格"/>
+		<mx:Label text="列表显示："/>
+		<mx:HSlider labels="[5行,10行]"   id="listNumSlider" minimum="5" maximum="10"  value="10" snapInterval="1"/>
+		</mx:HBox>
+	<mx:VBox x="0" y="58" width="100%" height="100%" paddingLeft="5" paddingRight="5">
+		<mx:Canvas id="addDataGridInHere" width="100%" height="100%">		
+		</mx:Canvas>
+		<mx:HBox width="100%" height="33" paddingLeft="10" paddingRight="10">
+			<mx:Label text="操作栏：" fontWeight="bold" fontSize="14"/>
+			<mx:Button label="上一页" click="prevPage();" />
+			<mx:Button label="下一页" click="nextPage();"/>
+			<mx:Button label="首页" click="firstPage();"/>
+			<mx:Button label="末页" click="lastPage();"/>
+			<mx:NumericStepper  change="researchController.getPageList(this.gotoPage.value);" id="gotoPage" value="{this.crtPage}" minimum="1" maximum="{this.totalPage}" stepSize="1"/>
+			<mx:Label text="页"/>
+		</mx:HBox>
+	</mx:VBox>
+
+</mx:Canvas>

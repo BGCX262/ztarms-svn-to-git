@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<mx:Module xmlns:mx="http://www.adobe.com/2006/mxml" layout="absolute" width="100%" height="100%" horizontalScrollPolicy="off">
+
+	<mx:HRule width="100%" height="3" top="194" left="0"/>
+	<mx:VRule width="3" height="100%" left="379" top="0"/>
+	<mx:Label x="10" y="10" text="欢迎界面" width="75" fontSize="15" fontWeight="bold"/>
+	<mx:Text id="welcome_text" width="361" height="144" left="10" top="42"/>
+	<mx:Label text="当前环境" fontWeight="bold" fontSize="15" right="302" left="390" top="13"/>
+	<mx:Text id="runtime_text" height="144" right="10" left="390" top="42"/>
+	<mx:Label text="版本说明" fontWeight="bold" fontSize="15" left="390" top="205"/>
+	<mx:Text x="390" y="237" text="系统名称：科研管理系统(Research Manager System)&#xa;当前版本：v0.1&#xa;开发作者：陕西师范数学与信息科学学院信科班2006级徐磊&#xa;开发日期：2010年03月12日开始&#xa;" width="361" height="138"/>
+	<mx:HBox width="355" height="138" left="10" top="237" horizontalAlign="left" verticalAlign="middle" horizontalGap="20">
+		
+		<mx:Button    height="84" width="87" paddingLeft="20" skin="@Embed(source='../scripts/images/note.png')" overSkin="@Embed(source='../scripts/images/note.png')" toolTip="便笺工具">
+		</mx:Button>
+		<mx:Button  toolTip="交流工具" height="84" width="87" skin="@Embed(source='../scripts/images/connect.png')"/>
+		<mx:Button width="87" height="84" skin="@Embed(source='../scripts/images/setting.png')" toolTip="基本设置"/>
+	</mx:HBox>
+	<mx:Label text="工具箱" fontWeight="bold" fontSize="15" left="10" top="208"/>
+
+</mx:Module>

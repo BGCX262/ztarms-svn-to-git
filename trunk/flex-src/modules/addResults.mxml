@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+<mx:Module xmlns:mx="http://www.adobe.com/2006/mxml" layout="absolute" width="100%" height="100%"  horizontalAlign="center" horizontalScrollPolicy="off">
+	<mx:HBox x="0" y="0" width="100%" height="100%">
+		<mx:Form width="100%" height="100%"  paddingLeft="50">
+			<mx:FormHeading label="添加科研成果"  paddingLeft="50" fontSize="15" width="447" textAlign="left"/>
+			<mx:FormItem label="成果名称：" >
+				<mx:HBox><mx:TextInput width="300"/><mx:Label text="*添加成果名称"/></mx:HBox>
+			</mx:FormItem>
+			<mx:FormItem label="成果类别：" >
+				<mx:HBox><mx:TextInput width="300"/><mx:Label text="*添加成果类别"/></mx:HBox>
+			</mx:FormItem>
+			<mx:FormItem label="完成单位：">
+				<mx:HBox><mx:TextInput width="300"/><mx:Label text="*添加完成单位"/></mx:HBox>
+			</mx:FormItem>
+			<mx:FormItem label="负责人：">
+				<mx:HBox><mx:TextInput width="300"/><mx:Label text="*添加负责人"/></mx:HBox>
+			</mx:FormItem>
+			<mx:FormItem label="完成时间：">
+				<mx:HBox><mx:TextInput width="300"/><mx:Label text="*添加完成时间"/></mx:HBox>
+			</mx:FormItem>
+			<mx:FormItem label="经费额度：" horizontalAlign="left">
+				<mx:HBox><mx:TextInput width="128" /><mx:Label text="RMB"/><mx:Label text="*添加经费额度"/></mx:HBox>
+			</mx:FormItem>
+			<mx:FormItem label="投入生产：">
+				<mx:HBox>
+					<mx:RadioButton groupName="produceGroup" label="是" selected="true"/>
+					<mx:RadioButton groupName="produceGroup" label="否"/>
+					<mx:RadioButtonGroup id="produceGroup"/>
+					<mx:Label text="是否投入生产"/>
+				</mx:HBox>
+			</mx:FormItem>
+			<mx:FormItem label="经济效益：">
+				<mx:HBox><mx:TextInput width="300"/><mx:Label text="*经济效益"/></mx:HBox>
+			</mx:FormItem>
+			<mx:FormItem label="备注：">
+				<mx:HBox><mx:TextArea width="300" height="80"/><mx:Label text="*添加备注"/></mx:HBox>
+			</mx:FormItem>
+			<mx:FormItem  width="369">
+				<mx:HBox>
+					<mx:Button label="添加成果">		</mx:Button><mx:Button label="重新添加">		</mx:Button>
+				</mx:HBox>
+			</mx:FormItem>			
+		</mx:Form>
+	</mx:HBox>
+	
+</mx:Module>
